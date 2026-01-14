@@ -1,0 +1,19 @@
+# Python virtual environment
+env/
+
+# Node modules
+node_modules/
+
+# VS Code
+.vscode/
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Build output
+out/
+
+# OS junk
+.DS_Store
+

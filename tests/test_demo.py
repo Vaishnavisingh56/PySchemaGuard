@@ -1,0 +1,1 @@
+db.execute("SELECT departnant_name FROM employees")

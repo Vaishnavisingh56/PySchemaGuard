@@ -1,0 +1,50 @@
+{
+  "departments": {
+    "columns": [
+      {
+        "name": "department_id",
+        "type": "integer",
+        "nullable": false
+      },
+      {
+        "name": "department_n",
+        "type": "character varying",
+        "nullable": false
+      },
+      {
+        "name": "location",
+        "type": "character varying",
+        "nullable": true
+      }
+    ]
+  },
+  "employees": {
+    "columns": [
+      {
+        "name": "employee_id",
+        "type": "integer",
+        "nullable": false
+      },
+      {
+        "name": "employee_name",
+        "type": "character varying",
+        "nullable": false
+      },
+      {
+        "name": "email",
+        "type": "character varying",
+        "nullable": true
+      },
+      {
+        "name": "salary",
+        "type": "numeric",
+        "nullable": true
+      },
+      {
+        "name": "department_id",
+        "type": "integer",
+        "nullable": true
+      }
+    ]
+  }
+}

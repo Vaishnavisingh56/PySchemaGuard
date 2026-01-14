@@ -1,0 +1,7 @@
+fuzzy:
+  weights:
+    edit: 0.45
+    token: 0.35
+    prefix: 0.15
+    length: 0.05
+  threshold: 0.6
