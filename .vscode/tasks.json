@@ -1,0 +1,11 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Run SQL Validator",
+      "type": "shell",
+      "command": "env\\bin\\python.exe -m src.cli check ${file}",
+      "problemMatcher": []
+    }
+  ]
+}

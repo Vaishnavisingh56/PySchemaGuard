@@ -1,19 +1,16 @@
-# Python virtual environment
-env/
-
-# Node modules
-node_modules/
-
-# VS Code
-.vscode/
-
-# Python cache
+# Python
 __pycache__/
 *.pyc
 
-# Build output
+# Virtual environments
+env/
+venv/
+
+# Node
+node_modules/
+
+# VS Code build output
 out/
 
-# OS junk
+# OS files
 .DS_Store
-
