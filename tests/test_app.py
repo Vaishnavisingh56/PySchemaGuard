@@ -25,7 +25,7 @@ def fetch_employee_report(db):
     FROM employes
     JOIN departments
     ON employees.department_id = departments.department_id"""
-    db.execute("SELECT emp_naame FROM employes")
+    db.execute("SELECT emp_naame FROM employees")
 
 
     # Execute queries (our validator will flag the wrong one)

@@ -32,8 +32,8 @@ class PythonSQLParser:
 
     def check_if_sql(self, string_value, line_number):
         """Check if a string is likely to be SQL"""
-        sql_keywords = ["SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "DROP"]
-        upper_string = string_value.upper().strip()
+        sql_keywords = ["SELECT", "INSERT", "UPDATE", "DELETE", "CREATE", "DROP", "TRUNCATE"]
+        upper_string = string_value.lstrip().upper()
 
         if any(upper_string.startswith(keyword) for keyword in sql_keywords):
             self.sql_queries.append({
