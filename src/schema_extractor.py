@@ -11,16 +11,22 @@ class SchemaExtractor:
         user=None,
         password=None,
     ):
-        self.host = host or os.getenv("PG_HOST", "localhost")
-        self.port = port or int(os.getenv("PG_PORT", 5432))
-        self.database = database or os.getenv("PG_DATABASE")
-        self.user = user or os.getenv("PG_USER")
-        self.password = password or os.getenv("PG_PASSWORD")
+        self.host = host or os.getenv("DB_HOST", "localhost")
+        self.port = port or int(os.getenv("DB_PORT", 5432))
+        self.database = database or os.getenv("DB_DATABASE")
+        self.user = user or os.getenv("DB_USER")
+        self.password = password or os.getenv("DB_PASSWORD")
         self.conn = None
 
 
     def connect(self):
         try:
+            if not all([self.database, self.user, self.password]):
+                raise ValueError(
+                    "Database credentials missing. "
+                    "Set DB_NAME, DB_USER, and DB_PASSWORD environment variables."
+                )
+
             self.conn = pg8000.connect(
                 host=self.host,
                 port=self.port,
