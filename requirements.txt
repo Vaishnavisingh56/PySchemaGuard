@@ -1,0 +1,4 @@
+click>=8.0
+sqlparse>=0.4
+pg8000>=1.30
+PyYAML>=6.0
