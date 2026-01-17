@@ -1,22 +1,23 @@
 import json
 import pg8000
-
+import os
 
 class SchemaExtractor:
     def __init__(
         self,
-        host="localhost",
-        port=5432,
-        database="sql_validator_db",  # change if your DB name is different
-        user="postgres",
-        password="HiimV973@",  # <-- put your actual password
+        host=None,
+        port=None,
+        database=None,
+        user=None,
+        password=None,
     ):
-        self.host = host
-        self.port = port
-        self.database = database
-        self.user = user
-        self.password = password
+        self.host = host or os.getenv("PG_HOST", "localhost")
+        self.port = port or int(os.getenv("PG_PORT", 5432))
+        self.database = database or os.getenv("PG_DATABASE")
+        self.user = user or os.getenv("PG_USER")
+        self.password = password or os.getenv("PG_PASSWORD")
         self.conn = None
+
 
     def connect(self):
         try:
@@ -112,13 +113,7 @@ class SchemaExtractor:
 
 
 if __name__ == "__main__":
-    extractor = SchemaExtractor(
-        host="localhost",
-        port=5432,
-        database="sql_validator_db",  # change if needed
-        user="postgres",
-        password="HiimV973@",  # same as in test_db_connection.py
-    )
+    extractor = SchemaExtractor()
     extractor.connect()
     extractor.save_to_file("schema.json")
     extractor.close()
