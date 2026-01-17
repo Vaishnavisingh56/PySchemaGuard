@@ -1,71 +1,133 @@
-# sql-validator README
+PySchemaGuard (Backend)
 
-This is the README for your extension "sql-validator". After writing up a brief description, we recommend including the following sections.
+PySchemaGuard is a schema-aware static SQL validation tool for Python projects.
+It analyzes SQL queries embedded in Python source code and validates them against a static snapshot of a PostgreSQL database schema, without executing the queries.
 
-## Features
+The backend provides:
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+SQL extraction from Python files
 
-For example if there is an image subfolder under your extension project workspace:
+Schema-aware semantic validation
 
-\!\[feature X\]\(images/feature-x.png\)
+Fuzzy typo correction
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+Datatype mismatch detection
 
-## Requirements
+Structured diagnostics for IDE integration
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+🧠 Key Concept
 
-## Extension Settings
+PySchemaGuard performs semantic validation, not syntax validation.
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
+❌ No SQL execution
 
-For example:
+❌ No runtime database queries
 
-This extension contributes the following settings:
+✅ Static analysis only
 
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+✅ Safe and deterministic
 
-## Known Issues
+The database is accessed only once to generate a schema snapshot (schema.json).
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+📁 Repository Structure
+PySchemaGuard/
+├── src/
+│   ├── cli.py
+│   ├── validator.py
+│   ├── sql_analyzer.py
+│   ├── ast_parser.py
+│   └── fuzzy.py
+├── schema_extractor.py
+├── schema.json
+├── requirements.txt
+├── default_config.yaml
+└── README.md
 
-## Release Notes
+✅ Prerequisites
 
-Users appreciate release notes as you update your extension.
+Python 3.8 or later
 
-### 1.0.0
+PostgreSQL (only required for schema extraction)
 
-Initial release of ...
+📦 Installation
+Install Python dependencies
+Windows
+py -m pip install -r requirements.txt
 
-### 1.0.1
+Linux / macOS
+python3 -m pip install -r requirements.txt
 
-Fixed issue #.
+🗄️ Schema Extraction (One-Time Setup)
 
-### 1.1.0
+Schema extraction is required only when the database structure changes.
 
-Added features X, Y, and Z.
+1️⃣ Set environment variables
+Windows (PowerShell)
+$env:PG_HOST="localhost"
+$env:PG_PORT="5432"
+$env:PG_DATABASE="your_database"
+$env:PG_USER="your_user"
+$env:PG_PASSWORD="your_password"
 
----
+Linux / macOS
+export PG_HOST=localhost
+export PG_PORT=5432
+export PG_DATABASE=your_database
+export PG_USER=your_user
+export PG_PASSWORD=your_password
 
-## Following extension guidelines
+2️⃣ Run schema extractor
+python schema_extractor.py
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
 
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+This generates:
 
-## Working with Markdown
+schema.json
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+This file is used by the validator for all semantic checks.
 
-## For more information
+▶️ Command-Line Usage
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+Validate a Python file:
 
-**Enjoy!**
+python -m src.cli check your_file.py
+
+
+JSON output mode (used by the VS Code extension):
+
+python -m src.cli check your_file.py --json-output
+
+🧪 Types of Issues Detected
+
+Invalid table names
+
+Invalid column names
+
+Cross-table column misuse
+
+Typographical errors (fuzzy suggestions)
+
+Datatype mismatches in UPDATE / INSERT statements
+
+⚠️ Limitations
+
+Not a full SQL syntax validator
+
+Limited support for deeply nested queries and advanced aliasing
+
+Schema must be regenerated manually when DB changes
+
+🔁 Reproducibility
+
+Results are deterministic provided:
+
+Same schema.json
+
+Same Python version and dependencies
+
+Same source code
+
+📄 License
+
+MIT License
